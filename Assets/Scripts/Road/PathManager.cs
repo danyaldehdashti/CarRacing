@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Road.Interface;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,25 +9,34 @@ namespace Road
     {
         [SerializeField] private GameObject roadPrefab;
         
-        private UnityEvent<IRoad> _onSpawnRoad = new UnityEvent<IRoad>();
+        public  List<RoadController> _roads;
+
+        private UnityEvent<Transform> _onSpawnRoad;
 
         private void Awake()
         {
+            _roads = new List<RoadController>(GetComponentsInChildren<RoadController>());
+            if (_onSpawnRoad == null)
+                _onSpawnRoad = new UnityEvent<Transform>();
+            
+            
             _onSpawnRoad.AddListener(SpawnNewRoad);
         }
         
-        public UnityEvent<IRoad> OnSpawnRoad()
+        public UnityEvent<Transform> OnSpawnRoad()
         {
             return _onSpawnRoad;
         }
 
-        private void SpawnNewRoad(IRoad road)
+        private void SpawnNewRoad(Transform tran)
         {
-            Transform newRoadPosition = road.GetSpawnPositions();
-
             GameObject newRoad = Instantiate(roadPrefab,gameObject.transform,true);
             
-            newRoad.GetComponent<IRoad>().SetPositions(newRoadPosition);
+            newRoad.GetComponent<RoadController>().SetPositions(tran);
+            
+            _roads.RemoveAt(0);
+
+            _roads.Add(newRoad.GetComponent<RoadController>());
         }
     }
 }

@@ -1,5 +1,4 @@
-
-using Road.Interface;
+using System;
 using UnityEngine;
 
 namespace Road
@@ -15,11 +14,12 @@ namespace Road
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<IRoad>() != null)
+            if (other.gameObject.GetComponent<RoadController>() != null)
             {
-                _pathManager.OnSpawnRoad().Invoke(other.GetComponent<IRoad>());
                 Destroy(other.gameObject);
+                _pathManager.OnSpawnRoad().Invoke(other.gameObject.transform);
             }
         }
+
     }
 }

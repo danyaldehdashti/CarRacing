@@ -1,26 +1,15 @@
-using System;
-using Road.Interface;
+
 using UnityEngine;
 
 namespace Road
 {
-    public class RoadController : MonoBehaviour,IRoad
+    public class RoadController : MonoBehaviour
     {
-        private Transform _newRoadTransform;
-
-        private void Awake()
+        private const float NewRoadPosition = -59;
+        
+        public void SetPositions(Transform tran)
         {
-            _newRoadTransform = GetComponentInChildren<Transform>();
-        }
-
-        public Transform GetSpawnPositions()
-        {
-            return _newRoadTransform;
-        }
-
-        public void SetPositions(Transform position)
-        {
-            gameObject.transform.position = transform.position;
+            gameObject.transform.position = tran.position + new Vector3(0,0,NewRoadPosition);
         }
         
     }
