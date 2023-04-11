@@ -8,11 +8,12 @@ namespace Runtime
         [SerializeField] private Animator animator;
 
         private int _sceneToLoad;
+        private static readonly int FadeOut = Animator.StringToHash("FadeOut");
 
         public void FadeToLoadScene(int sceneIndex)
         {
             _sceneToLoad = sceneIndex;
-            animator.SetTrigger("FadeOut");
+            animator.SetTrigger(FadeOut);
         }
 
         public void OnFadeDone()

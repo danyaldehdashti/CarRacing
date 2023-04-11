@@ -19,7 +19,6 @@ namespace Road
                 Destroy(other.gameObject);
                 _pathManager.OnSpawnRoad().Invoke(other.gameObject.transform);
             }
-        }
-
+        }   
     }
 }
